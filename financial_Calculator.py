@@ -62,10 +62,18 @@ bond_answer_label.grid(row=10, column=0, columnspan=2, padx=10, pady=10)
 
 # Create function for investment calculation
 def calculate_investment():
-    inv_amount = float(inv_amount_entry.get())
-    inv_rate = float(inv_rate_entry.get())
-    inv_time = int(inv_time_entry.get())
+    inv_amount = inv_amount_entry.get()
+    inv_rate = inv_rate_entry.get()
+    inv_time = inv_time_entry.get()
     interest_type = inv_interest_var.get()
+
+    if inv_amount == "" or inv_rate == "" or inv_time == "":
+        inv_answer_label.config(text="Please enter all values.")
+        return
+
+    inv_amount = float(inv_amount)
+    inv_rate = float(inv_rate)
+    inv_time = int(inv_time)
     
     if interest_type == "Simple":
         inv_answer = inv_amount * (1 + (inv_rate / 100) * inv_time)
@@ -76,9 +84,18 @@ def calculate_investment():
 
 # Create function for bond calculation
 def calculate_bond():
-    bond_value = float(bond_value_entry.get())
-    bond_rate = float(bond_rate_entry.get())
-    bond_time = int(bond_time_entry.get())
+    bond_value = bond_value_entry.get()
+    bond_rate = bond_rate_entry.get()
+    bond_time = bond_time_entry.get()
+
+    if bond_value == "" or bond_rate == "" or bond_time == "":
+        bond_answer_label.config(text="Please enter all values.")
+        return
+
+    bond_value = float(bond_value)
+    bond_rate = float(bond_rate)
+    bond_time = int(bond_time)
+    
     bond_payment = bond_value / (((1 - math.pow((1 + bond_rate / 100), -bond_time))) / (bond_rate / 100))
     bond_answer_label.config(text=f"Your monthly payment will be R{bond_payment:.2f}.")
 
